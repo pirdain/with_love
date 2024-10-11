@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update TFT Message</title>
+    <script>
+        function sendMessage() {
+            // Your ThingSpeak API write key
+            const apiKey = "YUGJXODDRJNFHU2H4";
+            // Get the message from the input box
+            const message = document.getElementById("message").value;
+            // Construct the URL for the API request
+            const url = `https://api.thingspeak.com/update?api_key=${apiKey}&field1=${encodeURIComponent(message)}`;
+
+            // Send the request
+            fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                alert("Message Sent Successfully");
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Update Message for Wifey</h1>
+    <label for="message">Enter your message:</label><br>
+    <input type="text" id="message" name="message" placeholder="Type your message here">
+    <br><br>
+    <button onclick="sendMessage()">Send Message</button>
+</body>
+</html>
