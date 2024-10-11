@@ -11,17 +11,25 @@
             // Get the message from the input box
             const message = document.getElementById("message").value;
             // Construct the URL for the API request
-            const url ='https://api.thingspeak.com/update?api_key=UGJXODDRJNFHU2H4&field1=Bye+World'; // `https://api.thingspeak.com/update?api_key=${apiKey}&field1=${encodeURIComponent(message)}`;
-
+            const url = `https://api.thingspeak.com/update?api_key=${apiKey}&field1=${encodeURIComponent(message)}`;
+            
+            // Create a new XMLHttpRequest
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", url, true);
+            
+            // Set up a function to handle the response
+            xhr.onload = function () {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    // Successfully sent the message
+                    alert("Message Sent Successfully");
+                } else {
+                    // Error occurred
+                    alert("Error: " + xhr.status);
+                }
+            };
+            
             // Send the request
-            fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                alert("Message Sent Successfully");
-            })
-            .catch(error => {
-                console.error("Error:", error);
-            });
+            xhr.send();
         }
     </script>
 </head>
